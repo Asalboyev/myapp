@@ -39,19 +39,15 @@
                         <label>Nuber</label>
                         <input type="text" class="form-control" name="number">
                     </div>
-
                     <div class="form-group">
-                        <label>Apartments selected </label>
-                        <select class="form-control" name="apartments_id" id="">
-                            @foreach ($apartments as $apartment )
-                                <option value="{{$apartment->id}}">{{ $apartment->id}}</option>
-
-                            @endforeach
-                        </select>
-                        @error('apartments_id')
-                        <span style="color: red">{{ $message }}</span>
-                        @enderror
+                        <label>Color</label>
+                        <input type="text" class="form-control" name="color">
                     </div>
+                    <div class="form-group">
+                        <label>Year</label>
+                        <input type="number" class="form-control" name="year">
+                    </div>
+
 
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Save</button>

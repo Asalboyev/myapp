@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Apartment;
 
 class Car extends Model
 {
@@ -12,7 +13,7 @@ class Car extends Model
 
     public function apartments()
     {
-        return $this->belongsTo(Apartment::class);
+        return $this->belongsToMany(Apartment::class);
     }
     public function clents()
     {

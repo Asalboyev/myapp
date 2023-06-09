@@ -42,6 +42,18 @@
                         <label>Maydon</label>
                         <input type="text" class="form-control" name="maydon">
                     </div>
+
+                    <div class="form-group">
+                        <label>Cars selected </label>
+                        <select name="tags[]" class="form-control select2"  multiple>
+                            @foreach ($tags as $tag)
+                                <option value="{{$tag->id}}">{{ $tag->model}}</option>
+
+                            @endforeach
+                            {{-- select2 --}}
+                        </select>
+
+                    </div>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Save</button>
                     </div>

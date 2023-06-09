@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Clent extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = ['name','tel','email','cars_id','apartments_id',];
 
-    public function cars()
+    public function tags()
     {
-        return $this->belongsTo(Car::class);
+        return $this->hasOne(Car::class);
     }
     public function apartments()
     {

@@ -31,6 +31,11 @@ Route::prefix('admin')->middleware(['auth'])->name('admin.')->group(function () 
     Route::resource('cars', CarsController::class);
     Route::resource('clents', ClentsController::class);
     Route::resource('clentscar', Clents_CarsController::class);
+    Route::get('getDistrict', [ClentsController::class, 'getDistrict'])->name('getDistrict');
+    Route::get('getDistrictt', [ClentsController::class, 'getDistrictt'])->name('getDistrictt');
+
+//     Route::get('apartment/{id/cars', ClentsController::class)
+
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

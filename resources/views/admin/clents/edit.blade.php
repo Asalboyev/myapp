@@ -46,30 +46,29 @@
                         <input type="tel" value="{{$clent->tel}}" class="form-control" name="tel">
                     </div>
 
+
                     <div class="form-group">
                         <label>Apartments selected </label>
-                        <select class="form-control" name="apartments_id" id="">
-                            @foreach ($apartments as $apartment )
-                                <option value="{{$apartment->id}}">{{ $apartment->xona_soni}}</option>
+                        <select class="form-control" name="apartments_id" id="apartments_id">
+                            <option value=""  selected="false" disabled="disabled">choose an apartments </option>
 
+                            @foreach ($apartments as $apartment )
+                                <option @if(in_array($apartment->id, $apartment->pluck('id')->toArray())) selected @endif value="{{$apartment->id}}">{{ $apartment->nom}}</option>
                             @endforeach
                         </select>
                         @error('apartments_id')
                         <span style="color: red">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label>Car selected </label>
-                        <select class="form-control" name="cars_id" id="">
-                            @foreach ($cars as $car )
-                                <option value="{{$car->id}}">{{$car->number}}</option>
 
-                            @endforeach
-                        </select>
-                        @error('cars_id')
-                        <span style="color: red">{{ $message }}</span>
-                        @enderror
-                    </div>
+
+                    <div class="form-group">
+                    <label>Cars selected </label>
+                    <select class="form-control" name="cars_id" id="cars_id">
+                        <option value="" selected="false" disabled="disabled">choose a car</option>
+
+                    </select>
+
 
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Save</button>
@@ -83,6 +82,32 @@
     </div>
 @endsection
 @section('js')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#apartments_id").change(function() {
+                var regionCode = this.value;
+                $('#cars_id').html('');
+                $.ajax({
+                    url: '{{ route('admin.getDistrict') }}?id=' + regionCode,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(res) {
+                        $('#cars_id').html(
+                            '<option value="" selected="false" disabled="disabled">Cars select</option>'
+                        );
+
+                        $.each(res, function(key, value) {
+                            $('#cars_id').append('<option value="' + value.model +
+                                '">' +
+                                value.model + '</option>');
+                        });
+                    }
+
+
+                });
+            });
+        });
+    </script>
 
 
     <script src="/admin/assets/js/app.min.js"></script>

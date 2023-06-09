@@ -30,6 +30,7 @@
                             <th>Nommi</th>
                             <th>Xona Soni</th>
                             <th>Maydon</th>
+                            <th>Cars</th>
                             <th>Action</th>
                         </tr>
                         @foreach ($apartments as $apartment)
@@ -38,7 +39,11 @@
                                 <td>{{ $apartment->nom}}</td>
                                 <td>{{ $apartment->xona_soni}}</td>
                                 <td>{{ $apartment->maydon}}</td>
-
+                               <td>@foreach ($apartment->tags as $tag)
+                                       {{ $tag->model }}
+                                       {{ $tag->numbr }}
+                                @endforeach
+                               </td>
                                 <td >
                                     <form style="display: inline" action="{{ route('admin.apartments.destroy',$apartment->id) }}" method="POST">
                                         @csrf

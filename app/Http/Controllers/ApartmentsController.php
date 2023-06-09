@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Models\Car;
 use Illuminate\Http\Request;
 
 class ApartmentsController extends Controller
@@ -21,7 +22,9 @@ class ApartmentsController extends Controller
      */
     public function create()
     {
-    return view('admin.apartments.create');
+        $tags = Car::all();
+
+        return view('admin.apartments.create',compact('tags'));
     }
 
     /**
@@ -29,7 +32,6 @@ class ApartmentsController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request,[
             'nom' => "required",
             'xona_soni' => "required",
@@ -37,7 +39,10 @@ class ApartmentsController extends Controller
         ]);
         $requestData = $request->all();
 
-        Apartment::create($requestData);
+         $apartment = Apartment::create($requestData);
+        $apartment->tags()->attach($request->tags);
+
+
         return redirect()->route('admin.apartments.index')->with('success','Tuzilma created successfully!');
 
     }
@@ -55,7 +60,9 @@ class ApartmentsController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        return view('admin.apartments.edit',compact('apartment'));
+        $tags = Car::all();
+
+        return view('admin.apartments.edit',compact('apartment','tags'));
     }
 
     /**
@@ -70,6 +77,8 @@ class ApartmentsController extends Controller
         ]);
         $requestData = $request->all();
         $apartment->update($requestData);
+        $apartment->tags()->attach($request->tags);
+
         return redirect()->route('admin.apartments.index')->with('success','Apartment updated successfully!');
 
     }

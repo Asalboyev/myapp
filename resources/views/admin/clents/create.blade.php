@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label>Model</label>
+                        <label>Name</label>
                         <input type="text" class="form-control" name="name"
                                @error('name')  is-invalid @enderror>
                         @error('name')
@@ -48,10 +48,11 @@
 
                     <div class="form-group">
                         <label>Apartments selected </label>
-                        <select class="form-control" name="apartments_id" id="">
-                            @foreach ($apartments as $apartment )
-                                <option value="{{$apartment->id}}">{{ $apartment->nom}}</option>
+                        <select class="form-control" name="apartments_id" id="apartments_id">
+                            <option value=""  selected="false" disabled="disabled">choose an apartments </option>
 
+                        @foreach ($apartments as $apartment )
+                                <option value="{{$apartment->id}}">{{ $apartment->nom}}</option>
                             @endforeach
                         </select>
                         @error('apartments_id')
@@ -61,15 +62,11 @@
 
                     <div class="form-group">
                         <label>Cars selected </label>
-                        <select class="form-control" name="cars_id" id="">
-                            @foreach ($cars as $car )
-                                <option value="{{$car->id}}">{{ $car->number}}</option>
+                        <select class="form-control" name="cars_id" id="cars_id">
+                                <option value="" selected="false" disabled="disabled">choose a car</option>
 
-                            @endforeach
                         </select>
-                        @error('cars_id')
-                        <span style="color: red">{{ $message }}</span>
-                        @enderror
+
                     </div>
 
                     <div class="input-group-append">
@@ -84,6 +81,32 @@
     </div>
 @endsection
 @section('js')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#apartments_id").change(function() {
+                var regionCode = this.value;
+                $('#cars_id').html('');
+                $.ajax({
+                    url: '{{ route('admin.getDistrict') }}?id=' + regionCode,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(res) {
+                        $('#cars_id').html(
+                            '<option value="" selected="false" disabled="disabled">Cars select</option>'
+                        );
+
+                        $.each(res, function(key, value) {
+                            $('#cars_id').append('<option value="' + value.model +
+                                '">' +
+                                value.model + '</option>');
+                        });
+                    }
+
+
+                });
+            });
+        });
+    </script>
 
 
     <script src="/admin/assets/js/app.min.js"></script>

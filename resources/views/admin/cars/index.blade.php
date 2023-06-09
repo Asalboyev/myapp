@@ -29,7 +29,7 @@
                             <th>#</th>
                             <th>Model</th>
                             <th>Car Number</th>
-                            <th>Apartments </th>
+                            <th>Color </th>
                             <th>Action</th>
                         </tr>
                         @foreach ($cars as $car)
@@ -37,8 +37,8 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{ $car->model}}</td>
                                 <td>{{ $car->number}}</td>
+                                <td>{{ $car->color}}</td>
 
-                                <td>{{ $car->apartments->nom ?? ''}} | {{ $car->apartments->xona_soni ?? ''}} </td>
 
 
                                 <td >

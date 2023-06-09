@@ -35,7 +35,8 @@ class CarsController extends Controller
         $this->validate($request,[
             'model' => 'required',
             'number' => 'required',
-            'apartments_id' => 'required',
+            'color' => 'required',
+            'year' => 'required',
         ]);
         $requestData = $request->all();
 
@@ -69,8 +70,9 @@ class CarsController extends Controller
         $this->validate($request,[
             'model' => 'required',
             'number' => 'required',
-            'apartments_id' => 'required',
-        ]);
+            'color' => 'required',
+            'year' => 'required',
+            ]);
         $requestData = $request->all();
         $car->update($requestData);
         return redirect()->route('admin.cars.index')->with('success','Car updated successfully!');

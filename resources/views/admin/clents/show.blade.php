@@ -14,55 +14,37 @@
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="/admin/assets/css/custom.css">
     <link rel='shortcut icon' type='image/x-icon' href='/admin/assets/img/favicon.ico' />@endsection
+
 @section('title')
-    Apartment  Edit
+    Clents  Edit
 @endsection
+
 @section('conatent')
     <div class="col-12 col-md-12 col-lg-8">
-        <form action=" {{ route('admin.apartments.update', $apartment->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="card">
-                <div class="card-header">
-                    <h4>Create Apartments</h4>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label>Nommi</label>
-                        <input type="text" value="{{$apartment->nom}}" class="form-control" name="nom"
-                               @error('nom')  is-invalid @enderror>
-                        @error('nom')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label>Xona_soni</label>
-                        <input type="text" value="{{$apartment->xona_soni}}" class="form-control" name="xona_soni">
-                    </div>
-                    <div class="form-group">
-                        <label>Maydon</label>
-                        <input type="text" value="{{$apartment->maydon}}" class="form-control" name="maydon">
-                    </div>
 
 
-                    <div class="form-group">
-                        <label>Cars selected  </label>
-                        <select name="tags[]" class="form-control select2"  multiple>
-                            @foreach ($tags as $tag)
-                                <option @if(in_array($tag->id, $apartment->tags->pluck('id')->toArray())) selected @endif value="{{$tag->id}}">{{ $tag->model}}</option>
 
-                            @endforeach
-                            {{-- select2 --}}
-                        </select>
+        <h1>{{$appart->nom}}</h1>
+            <h1>{{$appart->maydon}}</h1>
+            <h1>{{$appart->xona_soni}}</h1>
+        @foreach ($clents as $clen)
 
-                    </div>
+            <h1>{{$clents->name}}</h1>
+            <h1>{{$clen->email}}</h1>
+            <h1>{{$clen->tel}}</h1>
+        @endforeach
 
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">Save</button>
-                    </div>
-                </div>
-            </div>
-        </form>
+        {{--
+                @foreach ($carclent as $cle)
+
+                <h1>{{$cle->name}}</h1>
+                <h1>{{$cle->message}}</h1>
+                <h1>{{$cle->tel}}</h1>
+
+
+
+                @endforeach --}}
+
     </div>
 @endsection
 @section('js')

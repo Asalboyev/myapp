@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Apartment;
 use App\Models\Car;
 use App\Models\Clent;
+use App\Models\Clent_Car;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 use Illuminate\Http\Request;
 
 class ClentsController extends Controller
@@ -24,17 +28,23 @@ class ClentsController extends Controller
      */
     public function create()
     {
-        $cars = Car::all();
         $apartments = Apartment::all();
-        return view('admin.clents.create',compact('cars','apartments'));
+        return view('admin.clents.create',compact('apartments',));
     }
 
+    public function getDistrict(Request $request)
+    {
+        $district_ids = DB::table('apartment_car')->where('apartment_id', $request->id)->pluck('car_id');
+        $district = Car::whereIn('id',$district_ids)->get();
+        if (count($district) > 0) {
+            return response()->json($district);
+        }
+    }
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-
         $this->validate($request,[
             'name' => "required",
             'email' => "required",
@@ -52,23 +62,34 @@ class ClentsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+//    public function show( string $id)
+//{
+//    $carclent = Clent_Car::where('cars_id',$id)->latest()->get();
+//    $appart = Apartment::find($id);
+//    $clents = Clent::where('apartments_id',$id)->latest()->get();
+//
+//
+//    return view('admin.clents.show', compact('carclent','appart','clents'));
+//}
+
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Clent $clent)
     {
-
-        $cars = Car::all();
         $apartments = Apartment::all();
-        return view('admin.clents.edit',compact('cars','apartments','clent'));
+        return view('admin.clents.edit',compact('apartments','clent'));
 
     }
-
+    public function getDistrictt(Request $request)
+    {
+        $district_ids = DB::table('apartment_car')->where('apartment_id', $request->id)->pluck('car_id');
+        $district = Car::whereIn('id',$district_ids)->get();
+        if (count($district) > 0) {
+            return response()->json($district);
+        }
+    }
     /**
      * Update the specified resource in storage.
      */

@@ -47,7 +47,7 @@
 
 
                                 <td>{{ $clent->apartments->nom ?? ''}} | {{ $clent->apartments->xona_soni ?? ''}} </td>
-                                <td>{{ $clent->cars->model ?? ''}} | {{ $clent->cars->number ?? ''}} </td>
+                                <td>{{ $clent->cars_id}} </td>
 
 
                                 <td >
@@ -57,6 +57,7 @@
                                         <button href="#" class="btn btn-danger" onclick="return confirm('Ochirishni xohlisizmi?')" type="submit">Delete</button>
                                     </form>
                                     <a href="{{ route('admin.clents.edit',$clent->id) }}" class="btn btn-success">Edit</a>
+
 
                                 </td>
                             </tr>
