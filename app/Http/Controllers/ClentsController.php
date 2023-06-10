@@ -62,15 +62,15 @@ class ClentsController extends Controller
     /**
      * Display the specified resource.
      */
-//    public function show( string $id)
-//{
-//    $carclent = Clent_Car::where('cars_id',$id)->latest()->get();
-//    $appart = Apartment::find($id);
-//    $clents = Clent::where('apartments_id',$id)->latest()->get();
-//
-//
-//    return view('admin.clents.show', compact('carclent','appart','clents'));
-//}
+    public function show( string $id)
+{
+    $carclent = Clent_Car::where('cars_id',$id)->latest()->get();
+    $appart = Apartment::find($id);
+    $clents = Clent::where('apartments_id',$id)->latest()->get();
+
+
+    return view('admin.clents.show', compact('carclent','appart','clents'));
+}
 
 
     /**

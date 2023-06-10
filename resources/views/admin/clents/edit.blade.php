@@ -31,7 +31,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" value="{{$clent->name}}" class="form-control" name="name"
+                        <input type="text" value="{{$clent->name}}" required class="form-control" name="name"
                                @error('name')  is-invalid @enderror>
                         @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -39,17 +39,17 @@
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" value="{{$clent->email}}" class="form-control" name="email">
+                        <input type="email" value="{{$clent->email}}" required class="form-control" name="email">
                     </div>
                     <div class="form-group">
                         <label>Phone</label>
-                        <input type="tel" value="{{$clent->tel}}" class="form-control" name="tel">
+                        <input type="tel" value="{{$clent->tel}}" required class="form-control" name="tel">
                     </div>
 
 
                     <div class="form-group">
                         <label>Apartments selected </label>
-                        <select class="form-control" name="apartments_id" id="apartments_id">
+                        <select class="form-control" name="apartments_id"  requiredid="apartments_id">
                             <option value=""  selected="false" disabled="disabled">choose an apartments </option>
 
                             @foreach ($apartments as $apartment )
@@ -64,7 +64,7 @@
 
                     <div class="form-group">
                     <label>Cars selected </label>
-                    <select class="form-control" name="cars_id" id="cars_id">
+                    <select class="form-control" name="cars_id" required id="cars_id">
                         <option value="" selected="false" disabled="disabled">choose a car</option>
 
                     </select>

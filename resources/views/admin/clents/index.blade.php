@@ -56,6 +56,7 @@
                                         @method('DELETE')
                                         <button href="#" class="btn btn-danger" onclick="return confirm('Ochirishni xohlisizmi?')" type="submit">Delete</button>
                                     </form>
+                                    <a href="{{ route('admin.clents.show',$clent->id) }}" class="btn btn-success">Show</a>
                                     <a href="{{ route('admin.clents.edit',$clent->id) }}" class="btn btn-success">Edit</a>
 
 

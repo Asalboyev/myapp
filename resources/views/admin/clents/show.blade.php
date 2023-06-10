@@ -16,40 +16,77 @@
     <link rel='shortcut icon' type='image/x-icon' href='/admin/assets/img/favicon.ico' />@endsection
 
 @section('title')
-    Clents  Edit
+    Car  Create
 @endsection
-
 @section('conatent')
-    <div class="col-12 col-md-12 col-lg-8">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            @if (session('success'))
+                <div class="alert alert-primary alert-dismissible show fade">
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                            <span>×</span>
+                        </button>
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
+            <div class="card-header">
+                <div class="card-header-form">
+                    <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
+                </div>
+            </div>
 
 
 
-        <h1>{{$appart->nom}}</h1>
-            <h1>{{$appart->maydon}}</h1>
-            <h1>{{$appart->xona_soni}}</h1>
-        @foreach ($clents as $clen)
 
-            <h1>{{$clents->name}}</h1>
-            <h1>{{$clen->email}}</h1>
-            <h1>{{$clen->tel}}</h1>
-        @endforeach
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="table-1">
+                            @foreach ($clents as $clen)
 
-        {{--
-                @foreach ($carclent as $cle)
+                                <tr>
+                                    <th>Name</th> <td>{{$clen->name}}</td>
 
-                <h1>{{$cle->name}}</h1>
-                <h1>{{$cle->message}}</h1>
-                <h1>{{$cle->tel}}</h1>
+                                </tr>
+                                <tr>
+                                    <th>Email</th> <td>{{$clen->email}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Tel</th> <a href="{{$clen->tel}}" > <td>{{$clen->tel}}</td></a>
+                                </tr>
+                            @endforeach
+                            <tr>
+                                <th>Apartment nom </th> <td>{{$appart->nom}}</td>
+                            </tr>
+
+
+                            <tr>
+                                <th>Apartment maydon </th> <td>{{$appart->maydon}}</td>
+                            </tr>
+                            <tr>
+                                <th>Apartment maydon</th> <td>{{$appart->xona_soni}}</td>
+                            </tr>
+                            <tr>
+                                <th>Car model</th> <td>{{ $clen->cars_id}}</td>
+                            </tr>
 
 
 
-                @endforeach --}}
 
+
+                        </table>
+                    </div>
+                </div>
+        </div>
+        <div class="card-footer text-right">
+            <nav class="d-inline-block">
+
+            </nav>
+        </div>
     </div>
 @endsection
 @section('js')
-
-
     <script src="/admin/assets/js/app.min.js"></script>
     <!-- JS Libraies -->
     <script src="/admin/assets/bundles/cleave-js/dist/cleave.min.js"></script>
@@ -69,6 +106,3 @@
     <script src="/admin/assets/js/custom.js"></script>
 
 @endsection
-
-
-

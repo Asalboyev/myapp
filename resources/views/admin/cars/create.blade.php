@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="/admin/assets/css/components.css">
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="/admin/assets/css/custom.css">
-    <link rel='shortcut icon' type='image/x-icon' href='/admin/assets/img/favicon.ico' />@endsection
+    <link rel='shortcut icon' type='image/x-icon' href='/admin/assets/img/favicon.ico' />
+@endsection
 
 @section('title')
     Car  Create
@@ -29,23 +30,35 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Model</label>
-                        <input type="text" class="form-control" name="model"
+                        <input type="text" value="{{old('model')}}" required class="form-control" name="model"
                                @error('model')  is-invalid @enderror>
                         @error('model')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                        @error('model')
+                        <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Nuber</label>
-                        <input type="text" class="form-control" name="number">
+                        <input type="text" value="{{old('number')}}" required class="form-control" name="number">
+                        @error('number')
+                        <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Color</label>
-                        <input type="text" class="form-control" name="color">
+                        <input type="text" value="{{old('color')}}" required class="form-control" name="color">
+                        @error('color')
+                        <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Year</label>
-                        <input type="number" class="form-control" name="year">
+                        <input type="number" value="{{old('year')}}" required class="form-control" name="year">
+                        @error('year')
+                        <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
 
 

@@ -28,31 +28,42 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Nommi</label>
-                        <input type="text" class="form-control" name="nom"
+                        <input type="text" value="{{old('nom')}}" required class="form-control" name="nom"
                                @error('nom')  is-invalid @enderror>
                         @error('nom')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
+                        @error('nom')
+                        <span style="color: red">{{ $message }}</span>
+                        @enderror                    </div>
                     <div class="form-group">
                         <label>Xona_soni</label>
-                        <input type="text" class="form-control" name="xona_soni">
+                        <input type="text" value="{{old('xona_soni')}}" required class="form-control" name="xona_soni">
+                        @error('xona_soni')
+                        <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Maydon</label>
-                        <input type="text" class="form-control" name="maydon">
+                        <input type="text" value="{{old('maydon')}}" required class="form-control" name="maydon">
+                        @error('maydon')
+                        <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label>Cars selected </label>
-                        <select name="tags[]" class="form-control select2"  multiple>
+                        <select name="tags[]" value="{{old('tags[]')}}" required class="form-control select2"  multiple>
                             @foreach ($tags as $tag)
                                 <option value="{{$tag->id}}">{{ $tag->model}}</option>
 
                             @endforeach
+
                             {{-- select2 --}}
                         </select>
-
+                        @error('tags[]')
+                        <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Save</button>

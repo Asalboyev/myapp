@@ -30,25 +30,34 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="name"
+                        <input type="text" value="{{old('name')}}" required class="form-control" name="name"
                                @error('name')  is-invalid @enderror>
                         @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                        @error('name')
+                        <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" name="email">
+                        <input type="email" value="{{old('email')}}" required class="form-control" name="email">
+                        @error('email')
+                        <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label>Phone</label>
-                        <input type="tel" class="form-control" name="tel">
+                        <input type="tel" value="{{old('tel')}}" required class="form-control" name="tel">
+                        @error('tel')
+                        <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                         <label>Apartments selected </label>
-                        <select class="form-control" name="apartments_id" id="apartments_id">
+                        <select class="form-control" value="{{old('apartments_id')}}" required name="apartments_id" id="apartments_id">
                             <option value=""  selected="false" disabled="disabled">choose an apartments </option>
 
                         @foreach ($apartments as $apartment )
@@ -62,7 +71,7 @@
 
                     <div class="form-group">
                         <label>Cars selected </label>
-                        <select class="form-control" name="cars_id" id="cars_id">
+                        <select class="form-control" value="{{old('cars_id')}}" required name="cars_id" id="cars_id">
                                 <option value="" selected="false" disabled="disabled">choose a car</option>
 
                         </select>

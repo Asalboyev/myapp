@@ -54,22 +54,29 @@
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Name</label>
                                         <div class="col-sm-12 col-md-7">
-                                            <input type="text" name="name" class="form-control">
+                                            <input type="text" value="{{old('name')}}" required name="name" class="form-control">
+                                            @error('name')
+                                            <span style="color: red">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Phone</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text"  name="tel" class="form-control">
+                                                <input type="text" value="{{old('tel')}}" required  name="tel" class="form-control">
+                                                @error('tel')
+                                                <span style="color: red">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Cars</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <select class="form-control" name="cars_id" id="">
+                                                <select class="form-control" name="cars_id" value="{{old('cars_id')}}" required id="">
+
                                                     @foreach ($cars as $car )
-                                                        <option value="{{$car->id}}">{{ $car->number}}</option>
+                                                        <option value="{{$car->id}}">{{ $car->model}}</option>
 
                                                     @endforeach
                                                 </select>
@@ -81,7 +88,10 @@
                                         <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Message</label>
                                         <div class="col-sm-12 col-md-7">
-                                            <textarea name="message" class="summernote"></textarea>
+                                            <textarea name="message" value="{{old('message')}}" required class="summernote"></textarea>
+                                            @error('message')
+                                            <span style="color: red">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                         <div class="input-group-append">

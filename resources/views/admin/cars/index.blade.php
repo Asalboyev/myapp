@@ -37,7 +37,8 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{ $car->model}}</td>
                                 <td>{{ $car->number}}</td>
-                                <td>{{ $car->color}}</td>
+                                <td> <span style=" font-size: 2rem; color: {{ $car->color}}" > ■</span>
+                                </td>
 
 
 

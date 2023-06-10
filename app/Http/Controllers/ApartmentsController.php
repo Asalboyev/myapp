@@ -68,7 +68,7 @@ class ApartmentsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Apartment $apartment)
+    public function update(Request $request, Apartment $apartment )
     {
         $this->validate($request,[
             'nom' => "required",
@@ -77,7 +77,7 @@ class ApartmentsController extends Controller
         ]);
         $requestData = $request->all();
         $apartment->update($requestData);
-        $apartment->tags()->attach($request->tags);
+        $apartment->tags()->sync($request->tags);
 
         return redirect()->route('admin.apartments.index')->with('success','Apartment updated successfully!');
 
