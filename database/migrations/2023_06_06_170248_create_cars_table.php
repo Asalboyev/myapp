@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('number');
             $table->string('color');
             $table->integer('year');
+            $table->integer('taken')->default(0);
+
 //            $table->unsignedBigInteger('apartments_id');
             $table->timestamps();
         });

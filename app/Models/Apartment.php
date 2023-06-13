@@ -9,7 +9,8 @@ use App\Models\Car;
 class Apartment extends Model
 {
     use HasFactory;
-    protected $fillable = ['nom', 'xona_soni', 'maydon'];
+    protected $table = 'apartments';
+    protected $fillable = ['nom', 'xona_soni', 'maydon','taken'];
 
     public function clents()
     {

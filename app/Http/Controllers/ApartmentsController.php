@@ -15,6 +15,7 @@ class ApartmentsController extends Controller
     {
         $apartments = Apartment::all();
         return view('admin.apartments.index',compact('apartments'));
+
     }
 
     /**
@@ -22,7 +23,7 @@ class ApartmentsController extends Controller
      */
     public function create()
     {
-        $tags = Car::all();
+        $tags = Car::where('taken',0)->get();
 
         return view('admin.apartments.create',compact('tags'));
     }
@@ -30,19 +31,23 @@ class ApartmentsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, )
     {
         $this->validate($request,[
             'nom' => "required",
             'xona_soni' => "required",
             'maydon' => "required",
         ]);
+
         $requestData = $request->all();
 
          $apartment = Apartment::create($requestData);
-        $apartment->tags()->attach($request->tags);
+         $apartment->tags()->attach($request->tags);
+         $cancel = Car::findOrfail($request->tags[0]);
 
-
+        $cancel->update([
+            'taken' => $cancel->taken + 1
+        ]);
         return redirect()->route('admin.apartments.index')->with('success','Tuzilma created successfully!');
 
     }
@@ -68,7 +73,7 @@ class ApartmentsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Apartment $apartment )
+    public function update(Request $request, Apartment $apartment)
     {
         $this->validate($request,[
             'nom' => "required",
@@ -78,6 +83,11 @@ class ApartmentsController extends Controller
         $requestData = $request->all();
         $apartment->update($requestData);
         $apartment->tags()->sync($request->tags);
+        $cancel = Car::findOrfail($request->tags[0]);
+
+        $cancel->update([
+            'taken' => $cancel->taken + 1
+        ]);
 
         return redirect()->route('admin.apartments.index')->with('success','Apartment updated successfully!');
 

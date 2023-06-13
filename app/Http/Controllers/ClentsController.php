@@ -28,7 +28,7 @@ class ClentsController extends Controller
      */
     public function create()
     {
-        $apartments = Apartment::all();
+        $apartments = Apartment::where('taken', 0)->get();
         return view('admin.clents.create',compact('apartments',));
     }
 
@@ -53,7 +53,11 @@ class ClentsController extends Controller
             'apartments_id' => "required",
         ]);
         $requestData = $request->all();
-
+        $cancel = Apartment::findOrfail($request->apartments_id);
+//    dd($cancel);
+        $cancel->update([
+            'taken' =>1
+        ]);
         Clent::create($requestData);
         return redirect()->route('admin.clents.index')->with('success','Clent created successfully!');
 
@@ -62,14 +66,13 @@ class ClentsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show( string $id)
+    public function show(Clent $clent)
 {
-    $carclent = Clent_Car::where('cars_id',$id)->latest()->get();
-    $appart = Apartment::find($id);
-    $clents = Clent::where('apartments_id',$id)->latest()->get();
+    $appart = Apartment::find($clent->id);
+//    $clents = Clent::where('apartments_id',$id)->latest()->get();
 
 
-    return view('admin.clents.show', compact('carclent','appart','clents'));
+    return view('admin.clents.show', compact('appart','clent'));
 }
 
 
@@ -79,7 +82,8 @@ class ClentsController extends Controller
     public function edit(Clent $clent)
     {
         $apartments = Apartment::all();
-        return view('admin.clents.edit',compact('apartments','clent'));
+        $cars = Car::all();
+        return view('admin.clents.edit',compact('apartments','clent','cars'));
 
     }
     public function getDistrictt(Request $request)

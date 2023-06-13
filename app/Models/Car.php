@@ -15,8 +15,9 @@ class Car extends Model
     {
         return $this->belongsToMany(Apartment::class);
     }
-    public function clents()
+
+    public function tags()
     {
-        return $this->hasMany(Clent::class);
+        return $this->belongsToMany(Car::class);
     }
 }

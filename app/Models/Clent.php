@@ -10,9 +10,9 @@ class Clent extends Model
     use HasFactory;
     protected $fillable = ['name','tel','email','cars_id','apartments_id',];
 
-    public function tags()
+    public function cars()
     {
-        return $this->hasOne(Car::class);
+        return $this->belongsTo(Car::class);
     }
     public function apartments()
     {
