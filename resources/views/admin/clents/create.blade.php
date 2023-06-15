@@ -96,8 +96,7 @@ $(document).ready(function() {
         var regionCode = this.value;
         $('#cars_id').html('');
         $.ajax({
-            url: '{{ route('
-            admin.getDistrict ') }}?id=' + regionCode,
+            url: '{{ route('admin.getDistrict') }}?id=' + regionCode,
             type: 'get',
             dataType: 'json',
             success: function(res) {

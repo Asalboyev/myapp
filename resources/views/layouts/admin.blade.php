@@ -41,7 +41,7 @@
       <div class="main-content">
         <section class="section">
                 @yield('conatent')
-                </section>
+        </section>
       </div>
       <footer class="main-footer">
         <div class="footer-left">
