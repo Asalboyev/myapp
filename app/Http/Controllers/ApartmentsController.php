@@ -23,7 +23,7 @@ class ApartmentsController extends Controller
      */
     public function create()
     {
-        $tags = Car::where('taken',0)->get();
+        $tags = Car::where('taken',0)->latest()->get();
 
         return view('admin.apartments.create',compact('tags'));
     }
@@ -65,8 +65,7 @@ class ApartmentsController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        $tags = Car::all();
-
+        $tags = Car::where('taken',0)->latest()->get();
         return view('admin.apartments.edit',compact('apartment','tags'));
     }
 

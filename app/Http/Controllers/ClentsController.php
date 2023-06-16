@@ -28,7 +28,7 @@ class ClentsController extends Controller
      */
     public function create()
     {
-        $apartments = Apartment::where('taken', 0)->get();
+        $apartments = Apartment::where('taken', 0)->latest()->get();
         return view('admin.clents.create',compact('apartments',));
     }
 

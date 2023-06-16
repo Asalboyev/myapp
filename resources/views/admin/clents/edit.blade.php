@@ -61,7 +61,7 @@ Clents Edit
                 </div>
                 <div class="form-group">
                     <label>Cars selected </label>
-                    <select class="form-control select2" multiple value="{{ $apartment->id }}" required name="cars_id"
+                    <select class="form-control "  value="{{ $apartment->id }}" required name="cars_id"
                         id="cars_id">
                         @foreach ($cars as $car)
                         <option value="{{ $car->model }}" {{ $clent->cars_id == $car->model ? 'selected' : '' }}>

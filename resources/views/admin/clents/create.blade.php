@@ -72,7 +72,7 @@ Clents Create
 
                 <div class="form-group">
                     <label>Cars selected </label>
-                    <select class="form-control select2" multiple value="{{old('cars_id')}}" required name="cars_id"
+                    <select class="form-control "  value="{{old('cars_id')}}" required name="cars_id"
                         id="cars_id">
                     </select>
 
