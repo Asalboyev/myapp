@@ -65,7 +65,7 @@ class ApartmentsController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        $tags = Car::where('taken',0)->latest()->get();
+        $tags = Car::all();
         return view('admin.apartments.edit',compact('apartment','tags'));
     }
 
