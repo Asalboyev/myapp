@@ -47,7 +47,7 @@ Apartment Edit
 
                 <div class="form-group">
                     <label>Cars selected </label>
-                    <select name="tags[]" class="form-control select2" multiple>
+                    <select name="tags[]" required class="form-control select2" multiple>
                         @foreach ($tags as $tag)
                         <option @if(in_array($tag->id, $apartment->tags->pluck('id')->toArray())) selected @endif
                             value="{{$tag->id}}">{{ $tag->model}}</option>
