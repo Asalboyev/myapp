@@ -54,9 +54,9 @@ Apartment Create
 
                 <div class="form-group">
                     <label>Cars selected </label>
-                    <select name="tags[]" value="{{old('tags[]')}}" required class="form-control select2" multiple>
+                    <select redirect required name="tags[]" value="{{old('tags[]')}}"  class="form-control select2" multiple>
                         @foreach ($tags as $tag)
-                        <option value="{{$tag->id}}">{{ $tag->model}}</option>
+                        <option required redirect value="{{$tag->id}}">{{ $tag->model}}</option>
 
                         @endforeach
 

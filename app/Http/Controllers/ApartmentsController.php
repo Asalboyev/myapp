@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Apartment;
 use App\Models\Car;
+use App\Models\Clent;
 use Illuminate\Http\Request;
 
 class ApartmentsController extends Controller
@@ -43,11 +44,21 @@ class ApartmentsController extends Controller
 
          $apartment = Apartment::create($requestData);
          $apartment->tags()->attach($request->tags);
-         $cancel = Car::findOrfail($request->tags[0]);
+         $cars = Car::all();
+         $selectedCars = $request->tags; // Assuming 'tags' is the name of your select multiple input field
 
-        $cancel->update([
-            'taken' => $cancel->taken + 1
-        ]);
+         foreach ($cars as $car) {
+             if (in_array($car->id, $selectedCars)) {
+                 $car->update([
+                     'taken' => $car->taken + 1
+                 ]);
+             } else {
+                 $car->update([
+                     'taken' => $car->taken
+                 ]);
+             }
+         
+    }
         return redirect()->route('admin.apartments.index')->with('success','Tuzilma created successfully!');
 
     }
@@ -63,9 +74,33 @@ class ApartmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Apartment $apartment)
+    public function edit(Request $request, Apartment $apartment)
     {
-        $tags = Car::all();
+        $tags = Car::where('taken',0)->latest()->get();
+
+        $apartment = Apartment::findOrFail($apartment->id);
+
+        // Get the IDs of the selected cars from the form
+        $selectedCarIds = $request->input('tags', []);
+        
+        // Get the cars associated with the apartment
+        $cars = $apartment->tags;
+        
+        // Set the 'taken' value to 0 for all associated cars
+        foreach ($cars as $car) {
+            $car->taken = 0;
+            $car->save();
+        }
+        
+        // Set the 'taken' value to 1 for the selected cars
+        foreach ($selectedCarIds as $carId) {
+            $car = Car::findOrFail($carId);
+            $car->taken = 1;
+            $car->save();
+        }
+        $tags = Car::where('taken',0)->latest()->get();
+
+        // Delete the apartment
         return view('admin.apartments.edit',compact('apartment','tags'));
     }
 
@@ -82,11 +117,22 @@ class ApartmentsController extends Controller
         $requestData = $request->all();
         $apartment->update($requestData);
         $apartment->tags()->sync($request->tags);
-        $cancel = Car::findOrfail($request->tags[0]);
+        $allCars = Car::all();
+       $selectedCars = $request->tags; // Assuming 'tags' is the name of your select multiple input field
 
-        $cancel->update([
-            'taken' => $cancel->taken + 1
+foreach ($allCars as $car) {
+    if (in_array($car->id, $selectedCars)) {
+        $car->update([
+            'taken' => 1
         ]);
+    } else {
+        if ($car->taken != 1) {
+            $car->update([
+                'taken' => 0
+            ]);
+        }
+    }
+}
 
         return redirect()->route('admin.apartments.index')->with('success','Apartment updated successfully!');
 
@@ -95,10 +141,29 @@ class ApartmentsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        Apartment::destroy($id);
-return redirect()->route('admin.apartments.index')->with('success','Apartment delete     successfully!');
+        $apartment = Apartment::findOrFail($id);
+    
+        // Get the cars associated with the apartment
+        $cars = $apartment->tags;
+    
+        // Set the 'taken' value to 0 for the associated cars
+        foreach ($cars as $car) {
+            $car->taken = 0;
+            $car->save();
+        }
+    
+        // Delete the apartment
+        $apartment->delete();
+    
+        // Additional code or redirect as needed
+    
+    
+        return redirect()->route('admin.apartments.index')->with('success','Apartment delete     successfully!');
 
-    }
+        // Additional code or redirect as needed
+    } 
+    
+
 }

@@ -33,7 +33,8 @@ Route::prefix('admin')->middleware(['auth'])->name('admin.')->group(function () 
     Route::resource('clentscar', Clents_CarsController::class);
     Route::get('getDistrict', [ClentsController::class, 'getDistrict'])->name('getDistrict');
     Route::get('getDistrictt', [ClentsController::class, 'getDistrictt'])->name('getDistrictt');
-
+    Route::get('endpoint', [ClentsController::class, 'endpoint'])->name('endpoint');
+    
 //     Route::get('apartment/{id/cars', ClentsController::class)
 
 });

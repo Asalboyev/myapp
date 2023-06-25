@@ -21,5 +21,9 @@ class Apartment extends Model
     {
         return $this->belongsToMany(Car::class);
     }
+    public function cars()
+{
+    return $this->hasMany(Car::class);
+}
 
 }

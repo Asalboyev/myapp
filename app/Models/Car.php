@@ -20,4 +20,12 @@ class Car extends Model
     {
         return $this->belongsToMany(Car::class);
     }
+    public function cars()
+    {
+        return $this->belongsToMany(Car::class);
+    }
+    public function clents()
+    {
+        return $this->belongsToMany(Clent::class);
+    }
 }

@@ -8,14 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Clent extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','tel','email','cars_id','apartments_id',];
+    protected $table = 'clents';
 
-    public function cars()
-    {
-        return $this->belongsTo(Car::class);
-    }
+    protected $fillable = ['name','tel','email','apartments_id',];
+
+   
     public function apartments()
     {
         return $this->belongsTo(Apartment::class);
+    }
+    public function cars()
+    {
+        return $this->belongsToMany(Car::class);
     }
 }

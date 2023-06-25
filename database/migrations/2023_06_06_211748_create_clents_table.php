@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('tel');
             $table->string('email');
-            $table->string('cars_id');
-            $table->integer('apartments_id');
+            // $table->string('cars_id');
+            $table->foreignId('apartments_id')
+            ->constrained()
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

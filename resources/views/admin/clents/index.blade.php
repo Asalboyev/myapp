@@ -48,8 +48,11 @@ Clents
 
 
                             <td>{{ $clent->apartments->nom ?? ''}} | {{ $clent->apartments->xona_soni ?? ''}} </td>
-                            <td>{{ $clent->cars_id}} </td>
-
+                            <td>@foreach ($clent->cars as $car)
+                                {{ $car->model }}
+                                {{ $car->numbr }}
+                                @endforeach
+                            </td>
 
                             <td>
                                 <form style="display: inline" action="{{ route('admin.clents.destroy',$clent->id) }}"

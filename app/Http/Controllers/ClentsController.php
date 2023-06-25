@@ -29,6 +29,7 @@ class ClentsController extends Controller
     public function create()
     {
         $apartments = Apartment::where('taken',0)->latest()->get();
+        $cars = Car::all();
         return view('admin.clents.create',compact('apartments',));
     }
 
@@ -45,20 +46,24 @@ class ClentsController extends Controller
      */
     public function store(Request $request)
     {
+// dd($request->all());
+
         $this->validate($request,[
             'name' => "required",
             'email' => "required",
             'tel' => "required",
-            'cars_id' => "required",
             'apartments_id' => "required",
         ]);
         $requestData = $request->all();
+
         $cancel = Apartment::findOrfail($request->apartments_id);
 //    dd($cancel);
         $cancel->update([
             'taken' =>1
         ]);
-        Clent::create($requestData);
+        $clents = Clent::create($requestData);
+        $clents->cars()->attach($request->cars);
+
         return redirect()->route('admin.clents.index')->with('success','Clent created successfully!');
 
     }
@@ -79,13 +84,21 @@ class ClentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Clent $clent)
+    public function edit(Request $request, Clent $clent)
     {
-        $apartments = Apartment::all();
+        $tags = Apartment::where('taken',0)->latest()->get();
+
+        $clent = Clent::findOrFail($clent->id);
+
+        // Update the 'taken' value to 0 for all associated apartments
+        $clent->apartments()->update(['taken' => 0]);
+        // Additional code as needed
+        
+        $apartments  = Apartment::where('taken',0)->latest()->get();
         $cars = Car::all();
         return view('admin.clents.edit',compact('apartments','clent','cars'));
-
     }
+    
     public function getDistrictt(Request $request)
     {
         $district_ids = DB::table('apartment_car')->where('apartment_id', $request->id)->pluck('car_id');
@@ -99,26 +112,49 @@ class ClentsController extends Controller
      */
     public function update(Request $request, Clent $clent)
     {
+        // dd($clen t->all());
         $this->validate($request,[
             'name' => "required",
             'email' => "required",
             'tel' => "required",
-            'cars_id' => "required",
             'apartments_id' => "required",
         ]);
         $requestData = $request->all();
         $clent->update($requestData);
-        return redirect()->route('admin.clents.index')->with('success','Clent updated successfully!');
+        $clent->cars()->sync($request->cars);
+
+
+        $cancel = Apartment::findOrfail($request->apartments_id);
+//    dd($cancel);
+        $cancel->update([
+            'taken' =>1
+        ]);      return redirect()->route('admin.clents.index')->with('success','Clent updated successfully!');
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy( $id)
     {
-        Clent::destroy($id);
-        return redirect()->route('admin.clents.index')->with('success','Clent Delete successfully!');
-
+        $clent = Clent::findOrFail($id);
+        
+        // Get the apartments associated with the client
+        $apartments = $clent->apartments;
+        
+        // Update the 'taken' value to 0 for all associated apartments
+        $apartments->each(function ($apartment) {
+            $apartment->update([
+                'taken' => 0
+            ]);
+        });
+        
+    
+        $clent->delete();
+    
+        return redirect()->route('admin.clents.index')->with('success', 'Clent deleted successfully!');
     }
+    
+    
+    
 }

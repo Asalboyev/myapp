@@ -72,7 +72,7 @@ Clents Create
 
                 <div class="form-group">
                     <label>Cars selected </label>
-                    <select class="form-control "  value="{{old('cars_id')}}" required name="cars_id"
+                    <select redirect required name="cars[]" class="form-control select2" multiple  value="{{old('cars_id')}}"  
                         id="cars_id">
                     </select>
 
@@ -105,7 +105,7 @@ $(document).ready(function() {
                 );
 
                 $.each(res, function(key, value) {
-                    $('#cars_id').append('<option value="' + value.model +
+                    $('#cars_id').append('<option value="'  + value.id +
                         '">' +
                         value.model + '</option>');
                 });

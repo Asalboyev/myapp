@@ -61,11 +61,12 @@ Clents Edit
                 </div>
                 <div class="form-group">
                     <label>Cars selected </label>
-                    <select class="form-control "  value="{{ $apartment->id }}" required name="cars_id"
+                    <select class="form-control select2" multiple value="{{ $apartment->id }}" required name="cars[]"
                         id="cars_id">
                         @foreach ($cars as $car)
-                        <option value="{{ $car->model }}" {{ $clent->cars_id == $car->model ? 'selected' : '' }}>
-                            {{ $car->model }}</option>
+                        <option @if(in_array($car->id, $clent->cars->pluck('id')->toArray())) selected @endif
+                            value="{{$car->id}}">{{ $car->model}}</option>
+
                         @endforeach
                     </select>
                 </div>
@@ -89,11 +90,11 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(res) {
                 $('#cars_id').html(
-                    '<option value=""  selected="false" disabled="disabled">Cars select</option>'
+                    // '<option value=""  selected="false" disabled="disabled">Cars select</option>'
                 );
 
                 $.each(res, function(key, value) {
-                    $('#cars_id').append('<option value="' + value.model +
+                    $('#cars_id').append('<option value="' + value.id +
                         '">' +
                         value.model + '</option>');
                 });

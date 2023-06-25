@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-            Schema::create('cars_clents', function (Blueprint $table) {
+        Schema::create('car_clent', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('clents_id');
             $table->bigInteger('car_id');
+            $table->bigInteger('clent_id');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cars_clents');
+        Schema::dropIfExists('car_clent');
     }
 };
