@@ -13,8 +13,15 @@ return new class extends Migration
     {
         Schema::create('car_clent', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('car_id');
-            $table->bigInteger('clent_id');
+            // $table->bigInteger('car_id');
+            // $table->bigInteger('clent_id');
+            $table->foreignId('clent_id')
+            ->constrained()
+            ->onDelete('cascade');
+             $table->foreignId('car_id')
+            ->constrained()
+            ->onDelete('cascade');
+            
             $table->timestamps();
         });
     }
